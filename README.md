@@ -10,6 +10,8 @@
 
 ### 定义
 
+很简单，只有这些。🙃
+
 ~~~ tsx
 namespace Echoes
 {
