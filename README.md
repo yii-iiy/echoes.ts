@@ -126,7 +126,7 @@ f len: (1) | {...} len: (^Acc): 31      | {{...},f} len: (Env + Elm): 32      | 
 
 可以看到，在元素 `b` 完成转换之后，元素 `a` 的总量就翻倍了，而这个指标会在元素 `c` 完成转换之后进一步翻倍。
 
-上面的推导也可以用这样的尾递归逻辑实现：
+上面的推导也可以用这样的尾递归逻辑实现 _(Erlang)_ ：
 
 ~~~ erlang
 CalcuLen = fun
@@ -148,10 +148,41 @@ CalcuLen = fun
     
     , Eca = Ecaf (0)
     , Iter (Eca, {N, [Eca]}, Iter) end .
-
-CalcuLen (6, 1) .
 ~~~
 
+或者用 `fold` 也可以做这件事：
+
+~~~ erlang
+CalcuLen = fun
+(N, Elm) ->
+    
+    Ecaf = fun
+    (Env) ->
+        
+        Clu = Env + Elm ,
+        Acc = Env + Clu ,
+        {Elm, Env, Clu, Acc} end
+
+    , lists:foldl
+    (
+        fun 
+        (_, R) -> 
+            [{_, _, _, Env} |_] = R
+            , [Ecaf (Env) |R] end
+        , [Ecaf (0)], lists:seq(1, N-1)
+    ) end .
+~~~
+
+在调用 `CalcuLen (6, 1) .` 后会得到这样的输出：
+
+~~~ erlang
+[{1,31,32,63},
+ {1,15,16,31},
+ {1,7,8,15},
+ {1,3,4,7},
+ {1,1,2,3},
+ {1,0,1,1}]
+~~~
 
 
 ## 鸣谢
