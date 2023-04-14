@@ -95,7 +95,7 @@ Echoes.call(xx,'f2')('a',3).then(r => console.log(r)); // 结果为 3
 
 在不指定泛型的情况下，（目前的）类型推导无法确定 `Promise` 的泛型，因而 `r` 必须写作 `(r: number)` 。
 
-### 局限性
+## 局限
 
 由于：
 
