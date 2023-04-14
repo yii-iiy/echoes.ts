@@ -137,17 +137,17 @@ CalcuLen = fun
         
         Clu = Env + Elm ,
         Acc = Env + Clu ,
-        {Elm, Env, Clu, Acc} end ,
+        {Elm, Env, Clu, Acc} end
     
-    Iter = fun
+    , Iter = fun
     (_, {1, Res}, _) -> Res ;
     ({_, _, _, Env}, {N,R}, F) -> 
         
         Eca = Ecaf (Env) ,
-        F (Ecaf (Env), {N-1, [Ecaf (Env) |R]}, F) end ,
+        F (Ecaf (Env), {N-1, [Ecaf (Env) |R]}, F) end
     
-    Eca = Ecaf (0) ,
-    Iter (Eca, {N, [Eca]}, Iter) end .
+    , Eca = Ecaf (0)
+    , Iter (Eca, {N, [Eca]}, Iter) end .
 
 CalcuLen (6, 1) .
 ~~~
